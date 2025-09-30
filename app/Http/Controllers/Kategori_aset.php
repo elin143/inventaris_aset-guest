@@ -9,13 +9,39 @@ class Kategori_aset extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $data ['username']        = 'Heroku';
-        $data ['last_login']      = date('Y-m-d H:i:s');
-        $data ['list_pendidikan'] = ['SD','SMP','SMA','S1','S2','S3'];
-    return view('Kategori', $data );
-    }
+   public function index()
+{
+    $data['kategori'] = [
+        [
+            'kode' => '🚗 KD01',
+            'nama' => 'Kendaraan',
+            'deskripsi' => 'Mobil, motor, dan kendaraan operasional lainnya',
+        ],
+        [
+            'kode' => '💻 EL02',
+            'nama' => 'Elektronik',
+            'deskripsi' => 'Laptop, komputer, proyektor, dan perangkat elektronik lainnya',
+        ],
+        [
+            'kode' => '🏠 GD03',
+            'nama' => 'Gedung',
+            'deskripsi' => 'Bangunan kantor, ruang kuliah, dan fasilitas lainnya',
+        ],
+        [
+            'kode' => '📚 BK04',
+            'nama' => 'Buku',
+            'deskripsi' => 'Buku referensi, modul, dan literatur lainnya',
+        ],
+        [
+            'kode' => '🛠️ AT05',
+            'nama' => 'Alat',
+            'deskripsi' => 'Peralatan kerja, laboratorium, dan perlengkapan operasional',
+        ],
+    ];
+
+    return view('Kategori', $data);
+}
+
 
     /**
      * Show the form for creating a new resource.

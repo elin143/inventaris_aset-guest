@@ -77,11 +77,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>🚗 KD01</td>
-                    <td>Kendaraan</td>
-                    <td>Mobil, motor, dan kendaraan operasional lainnya</td>
-                </tr>
-                <tr>
-                    <td>💻 EL02</td>
-                    <td>Elektronik</td>
+    @foreach($kategori as $item)
+        <tr>
+            <td>{{ $item['kode'] }}</td>
+            <td>{{ $item['nama'] }}</td>
+            <td>{{ $item['deskripsi'] }}</td>
+        </tr>
+    @endforeach
+</tbody>
+
