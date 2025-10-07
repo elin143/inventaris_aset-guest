@@ -13,9 +13,6 @@
             background: #fff9fb;
             font-family: "Belanosima", cursive;
         }
-
-
-
         h2 {
             color: #7b1fa2;
             font-weight: bold;
