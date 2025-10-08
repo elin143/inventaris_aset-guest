@@ -6,12 +6,13 @@ use App\Http\Controllers\AuthController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::get('/kategori', [Kategori_aset::class, 'home']);
+Route::get('/kategori', [Kategori_aset::class, 'kategori'])
+->name('kategori');
 
-Route::get('/auth', [AuthController::class, 'index']);
+Route::GET('/auth', [AuthController::class, 'index']);
 
-Route::post('/auth/login', [AuthController::class, 'login'])
+Route::POST('/auth/login', [AuthController::class, 'login'])
 ->name('auth.login');

@@ -10,11 +10,53 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: #fff9fb;
             font-family: "Belanosima", cursive;
+            background: linear-gradient(270deg, #f8cdda, #1d2b64);
+            background-size: 400% 400%;
+            animation: gradientMove 8s ease infinite;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+                header {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(6px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+        .login-btn {
+            background-color: #fff;
+            color: #1d2b64;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #f8cdda;
+            color: #1d2b64;
+            box-shadow: 0 0 10px rgba(255,255,255,0.4);
         }
         h2 {
-            color: #7b1fa2;
+            color: #000000;
             font-weight: bold;
             margin-bottom: 25px;
             text-shadow: 1px 1px #f3e5f5;
@@ -51,13 +93,19 @@
             border-radius: 12px;
             margin-bottom: 25px;
             text-align: center;
-            color: #4a148c;
+            color: #000000;
             font-weight: 500;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Inventaris Aset Desa</h1>
+        <a href="{{ route('auth.login') }}">
+            <button class="login-btn">Login</button>
+        </a>
+    </header>
     <div class="container py-5">
         <h2 class="text-center"> Daftar Kategori Aset </h2>
 

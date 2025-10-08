@@ -9,7 +9,7 @@ class Kategori_aset extends Controller
     /**
      * Display a listing of the resource.
      */
-   public function index()
+   public function kategori()
 {
     $data['kategori'] = [
         [
