@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Kategori_aset;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
@@ -16,3 +17,6 @@ Route::GET('/auth', [AuthController::class, 'index']);
 
 Route::POST('/auth/login', [AuthController::class, 'login'])
 ->name('auth.login');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+->name('dashboard');
