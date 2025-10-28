@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('kategori_aset', function (Blueprint $table) {
+            $table->id('kategori_id');
+            $table->string('nama');
+            $table->string('kode')->unique();
+            $table->text('deskripsi')->nullable();
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfexists('kategori_aset');
+    }
+
+};
