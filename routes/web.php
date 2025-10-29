@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\WargaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Kategori_inventarisController;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
@@ -28,4 +30,24 @@ Route::get('/kategori/{id}/edit', [Kategori_inventarisController::class, 'edit']
 Route::put('/kategori/{kategori_id}', [Kategori_inventarisController::class, 'update'])->name('kategori.update');
 
 Route::delete('/kategori/{id}', [Kategori_inventarisController::class, 'destroy'])->name('kategori.destroy');
+
+Route::get('/warga', [WargaController::class, 'index'])->name('warga.index');
+
+Route::get('/warga/create', [WargaController::class, 'create'])->name('warga.create');
+
+Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
+
+Route::get('/warga/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit');
+
+Route::put('/warga/{id}', [WargaController::class, 'update'])->name('usewargar.update');
+
+Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
+
+Route::get('/login', [UserController::class, 'index'])->name('login');
+
+// Proses login
+Route::post('/login', [UserController::class, 'login'])->name('login.process');
+
+Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [UserController::class, 'register'])->name('register.process');
 

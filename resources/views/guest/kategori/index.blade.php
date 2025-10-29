@@ -6,12 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Kategori Inventaris</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
         /* ====== Gaya Dasar ====== */
         body {
             background: linear-gradient(135deg, #e9fdf3 0%, #f9fafb 100%);
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
+            margin: 0;
+            display: flex;
+        }
+
+        /* ====== SIDEBAR ====== */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 230px;
+            height: 100vh;
+            background: #042a02;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 25px 0;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar nav ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar nav ul li a {
+            color: #bdbdc7;
+            text-decoration: none;
+            display: block;
+            padding: 12px 25px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: 0.3s;
+
+        }
+
+        .sidebar nav ul li a:hover {
+            background: #35354a;
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        .sidebar .auth {
+            padding: 20px;
+            border-top: 1px solid #2f2f40;
+        }
+
+        .sidebar .auth a {
+            display: block;
+            text-align: center;
+            background: linear-gradient(135deg, #0b3110, #4f878a);
+            color: #fff;
+            padding: 10px 0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .sidebar .auth a:hover {
+            background: linear-gradient(135deg, #4e54c8, #5865f2);
+            transform: scale(1.03);
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        .main-content {
+            margin-left: 230px;
+            flex: 1;
             display: flex;
             flex-direction: column;
         }
@@ -38,7 +112,7 @@
             left: 0;
             width: 100%;
             height: 6px;
-            background: linear-gradient(90deg, #16a34a, #4ade80);
+            background: linear-gradient(90deg, #073905, #4ade80);
         }
 
         /* ====== Judul ====== */
@@ -50,7 +124,7 @@
 
         /* ====== Tombol Tambah ====== */
         .btn-success {
-            background: linear-gradient(90deg, #15803d, #22c55e);
+            background: linear-gradient(90deg, #073905, #72c08d);
             border: none;
             border-radius: 10px;
             padding: 10px 18px;
@@ -60,7 +134,7 @@
         }
 
         .btn-success:hover {
-            background: linear-gradient(90deg, #16a34a, #4ade80);
+            background: linear-gradient(90deg, #042a02, #4f715b);
             transform: translateY(-2px);
         }
 
@@ -79,7 +153,7 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             padding: 20px;
             transition: all 0.3s ease;
-            border-left: 5px solid #16a34a;
+            border-left: 5px solid #466c44;
             animation: fadeIn 0.6s ease-in-out;
         }
 
@@ -92,20 +166,20 @@
         .category-card h5 {
             font-size: 17px;
             font-weight: 600;
-            color: #1f2937;
+            color: #042a02;
             margin-bottom: 8px;
         }
 
         .category-card .code {
             font-size: 13px;
             font-weight: 500;
-            color: #16a34a;
+            color: #042a02;
             margin-bottom: 6px;
         }
 
         .category-card p {
             font-size: 13px;
-            color: #6b7280;
+            color: #042a02;
             min-height: 40px;
         }
 
@@ -127,8 +201,8 @@
 
         /* ====== Warna Tombol ====== */
         .btn-warning {
-            background: #facc15;
-            color: #78350f;
+            background: #fdcb00;
+            color: #000000;
             border: none;
             box-shadow: 0 3px 6px rgba(250, 204, 21, 0.3);
         }
@@ -139,7 +213,7 @@
         }
 
         .btn-danger {
-            background: #ef4444;
+            background: #cb1717;
             color: white;
             border: none;
             box-shadow: 0 3px 6px rgba(239, 68, 68, 0.3);
@@ -150,27 +224,12 @@
             transform: scale(1.05);
         }
 
-        /* ====== Alert ====== */
-        .alert {
-            border-radius: 12px;
-            border: none;
-            background: #dcfce7;
-            color: #166534;
-            font-weight: 500;
-        }
-
-        /* ====== Tabel Lama (disembunyikan tetap aman) ====== */
-        table {
-            display: none;
-        }
-
         /* ====== Footer ====== */
         footer {
-            background: linear-gradient(90deg, #14532d, #166534);
+            background: #042a02;
             color: white;
             text-align: center;
             padding: 15px 0;
-            margin-top: 60px;
             font-size: 14px;
             letter-spacing: 0.3px;
             box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.08);
@@ -193,83 +252,56 @@
                 transform: translateY(0);
             }
         }
-
-        /* ====== Responsif ====== */
-        @media (max-width: 768px) {
-            .card {
-                padding: 20px;
-            }
-
-            .btn-success {
-                width: 100%;
-                text-align: center;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="card p-4">
-            <h3 class="mb-4 text-center">Daftar Kategori Inventaris</h3>
 
-            <div class="text-end mb-3">
-                <a href="{{ route('kategori.create') }}" class="btn btn-success">+ Tambah Kategori</a>
-            </div>
+    <!-- ===== SIDEBAR TAMBAHAN ===== -->
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li><a href="{{ route('dashboard') }}"><i class="ti-info-alt"></i> Dashboard</a></li>
+                <li><a href="{{ route('kategori.index') }}">Categories</a></li>
+                <li><a href="#">Listing</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="auth">
+            <a href="#">Sign In</a>
+            <a href="#">Register</a>
+        </div>
+    </div>
 
-            {{-- Notifikasi sukses --}}
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <!-- ===== KONTEN UTAMA ===== -->
+    <div class="main-content">
+        <div class="container">
+            <div class="card p-4">
+                <h3 class="mb-4 text-center">Daftar Kategori Inventaris</h3>
+
+                <div class="text-end mb-3">
+                    <a href="{{ route('kategori.create') }}" class="btn btn-success">+ Tambah Kategori</a>
                 </div>
-            @endif
 
-            {{-- Tampilan baru: card grid --}}
-            <div class="card-container">
-                @forelse ($kategori as $index => $item)
-                    <div class="category-card">
-                        <div class="code">#{{ $item->kode }}</div>
-                        <h5>{{ $item->nama }}</h5>
-                        <p>{{ $item->deskripsi }}</p>
-
-                        <div class="actions">
-                            <a href="{{ route('kategori.edit', $item->kategori_id) }}"
-                                class="btn btn-warning btn-sm">Edit</a>
-                            <form action="{{ route('kategori.destroy', $item->kategori_id) }}" method="POST"
-                                style="display:inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Yakin hapus data ini?')">Hapus</button>
-                            </form>
-                        </div>
+                {{-- Notifikasi sukses --}}
+                @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                @empty
-                    <p class="text-muted text-center">Belum ada data kategori</p>
-                @endforelse
-            </div>
+                @endif
 
-            <table class="table table-bordered table-hover text-center align-middle">
-                <thead>
-                    <tr>
-                        <th width="5%">No</th>
-                        <th width="25%">Nama Kategori</th>
-                        <th width="15%">Kode</th>
-                        <th>Deskripsi</th>
-                        <th width="20%">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
+                {{-- Tampilan baru: card grid --}}
+                <div class="card-container">
                     @forelse ($kategori as $index => $item)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->kode }}</td>
-                            <td>{{ $item->deskripsi }}</td>
-                            <td>
+                        <div class="category-card">
+                            <div class="code">#{{ $item->kode }}</div>
+                            <h5>{{ $item->nama }}</h5>
+                            <p>{{ $item->deskripsi }}</p>
+
+                            <div class="actions">
                                 <a href="{{ route('kategori.edit', $item->kategori_id) }}"
-                                    class="btn btn-warning btn-sm me-1">Edit</a>
+                                    class="btn btn-warning btn-sm">Edit</a>
                                 <form action="{{ route('kategori.destroy', $item->kategori_id) }}" method="POST"
                                     style="display:inline-block">
                                     @csrf
@@ -277,22 +309,21 @@
                                     <button class="btn btn-danger btn-sm"
                                         onclick="return confirm('Yakin hapus data ini?')">Hapus</button>
                                 </form>
-                            </td>
-                        </tr>
+                            </div>
+                        </div>
                     @empty
-                        <tr>
-                            <td colspan="5" class="text-muted">Belum ada data kategori</td>
-                        </tr>
+                        <p class="text-muted text-center">Belum ada data kategori</p>
                     @endforelse
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
+
+        <footer>
+            <p>© 2025 Inventaris Aset Desa | Made by <span>Kel 9 (elin)</span></p>
+        </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<footer>
-    <p>© 2025 Inventaris Aset Desa | Made by <span>Kel 9 (elin)</span></p>
-</footer>
 
 </html>
