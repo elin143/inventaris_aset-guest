@@ -7,7 +7,7 @@
     <title>Tambah Kategori</title>
 
     {{-- css --}}
-
+@include('layout.kategori.css')
 
 </head>
 

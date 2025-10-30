@@ -151,13 +151,47 @@
         }
 
         footer {
-            margin-top: 60px;
-            background: #003b1f;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #003b1f, #005f2f);
             color: white;
             text-align: center;
-            padding: 15px;
+            padding: 15px 0;
             font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
         }
+
+        footer p {
+            margin: 0;
+        }
+    .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25D366;
+        color: #fff;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        z-index: 999;
+        transition: all 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+        background-color: #20ba5a;
+        transform: scale(1.1);
+    }
+
+    .whatsapp-float i {
+        margin-top: 16px;
+    }
     </style>
 </head>
 
@@ -167,13 +201,14 @@
         <div class="brand">Inventaris Desa</div>
         <div>
             <a href="{{ route('dashboard') }}">Dashboard</a>
+            <a href="{{ route('kategori.index') }}">Categori</a>
             <a href="{{ route('warga.index') }}">User</a>
         </div>
     </nav>
 
     <div class="container">
         <div class="header">
-            <h2>Daftar User</h2>
+            <h2>Daftar Warga</h2>
             <a href="{{ route('warga.create') }}" class="btn-tambah">+ Tambah Warga</a>
         </div>
 
@@ -189,7 +224,7 @@
                 <div class="card">
                     <div>
                         <h3>{{ $warga->name }}</h3>
-                        <p>Nama: {{ $warga->email }}</p>
+                        <p>Nama: {{ $warga->nama }}</p>
                         <p><strong>No. KTP:</strong> {{ $warga->no_ktp }}</p>
                         <p><strong>Jenis Kelamin:</strong> {{ $warga->jenis_kelamin }}</p>
                         <p><strong>Agama:</strong> {{ $warga->agama }}</p>
@@ -213,10 +248,17 @@
         </div>
     </div>
 
-    <footer>
-        © 2025 Inventaris Aset Desa | Made by Kel 9 (Elin)
-    </footer>
+
 
 </body>
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/62895329322457?text=Halo%20Admin%20Desa%2C%20saya%20ingin%20bertanya%20tentang%20aset%20desa."
+   class="whatsapp-float" target="_blank">
+   <i class="bi bi-whatsapp"></i>
+</a>
+
+<footer>
+    <p> © 2025 Inventaris Aset Desa | Made by Kel 9 (Elin)</p>
+</footer>
 
 </html>

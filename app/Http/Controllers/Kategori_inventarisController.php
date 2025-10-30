@@ -9,12 +9,12 @@ class Kategori_inventarisController extends Controller
     public function index()
     {
         $kategori = Kategori::all();
-        return view('guest.kategori.index', compact('kategori'));
+        return view('pages.guest.kategori.index', compact('kategori'));
     }
 
     public function create()
     {
-        return view('guest.kategori.create');
+        return view('pages.guest.kategori.create');
     }
 
     public function store(Request $request)
@@ -34,7 +34,7 @@ class Kategori_inventarisController extends Controller
     public function edit($id)
     {
         $kategori = Kategori::findOrFail($id);
-        return view('guest.kategori.edit', compact('kategori'));
+        return view('pages.guest.kategori.edit', compact('kategori'));
     }
 
     public function update(Request $request, $kategori_id)

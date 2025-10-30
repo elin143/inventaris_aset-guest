@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\WargaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Kategori_inventarisController;
@@ -39,7 +40,7 @@ Route::post('/warga', [WargaController::class, 'store'])->name('warga.store');
 
 Route::get('/warga/{id}/edit', [WargaController::class, 'edit'])->name('warga.edit');
 
-Route::put('/warga/{id}', [WargaController::class, 'update'])->name('usewargar.update');
+Route::put('/warga/{id}', [WargaController::class, 'update'])->name('warga.update');
 
 Route::delete('/warga/{id}', [WargaController::class, 'destroy'])->name('warga.destroy');
 
@@ -50,4 +51,6 @@ Route::post('/login', [UserController::class, 'login'])->name('login.process');
 
 Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [UserController::class, 'register'])->name('register.process');
+
+Route::get('/tentang', [GuestController::class, 'tentang'])->name('tentang');
 

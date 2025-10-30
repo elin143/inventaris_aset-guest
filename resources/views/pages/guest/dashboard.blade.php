@@ -18,6 +18,8 @@
 
         <!-- ===== MAIN CONTENT ===== -->
         <div class="main">
+        <div class="logo">
+            <i class="fa-brands fa-font-awesome"></i>
             <header>
                 <h1>Inventaris Aset</h1>
                 <div class="user">Welcome, Guest</div>
@@ -35,14 +37,23 @@
                 </div>
             </div>
         </div>
+        </div>
         <!-- ===== SIDEBAR ===== -->
 
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/62895329322457?text=Halo%20Admin%20Desa%2C%20saya%20ingin%20bertanya%20tentang%20aset%20desa."
+   class="whatsapp-float" target="_blank">
+   <i class="bi bi-whatsapp"></i>
+</a>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
         <footer>
             ©
             <script>
                 document.write(new Date().getFullYear());
-            </script> Inventaris Aset . Kelompok 9
+            </script> Inventaris Aset . Kelompok 9(elin)
         </footer>
         </div>
 

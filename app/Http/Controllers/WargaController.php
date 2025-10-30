@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Warga;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class WargaController extends Controller
     public function index()
     {
         $warga = Warga::all();
-        return view('guest.warga.index', compact('warga'));
+        return view('pages.guest.warga.index', compact('warga'));
     }
 
     /**
@@ -20,7 +21,7 @@ class WargaController extends Controller
      */
     public function create()
     {
-        return view('guest.warga.create');
+        return view('pages.guest.warga.create');
     }
 
     /**
@@ -61,7 +62,7 @@ class WargaController extends Controller
     public function edit(string $id)
     {
         $warga = Warga::findOrFail($id);
-        return view('guest.warga.edit', compact('warga'));
+        return view('pages.guest.warga.edit', compact('warga'));
     }
 
     /**
@@ -69,8 +70,9 @@ class WargaController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $warga = Warga::findOrFail($id);
         $warga->update($request->all());
-        return redirect()->route('guest.warga.index')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('warga.index')->with('success', 'Data berhasil diperbarui!');
     }
 
     /**
@@ -78,7 +80,8 @@ class WargaController extends Controller
      */
     public function destroy(string $id)
     {
+        $warga = Warga::findOrFail($id);
         $warga->delete();
-        return redirect()->route('guest.warga.index')->with('success', 'Warga dihapus!');
+        return redirect()->route('pages.guest.warga.index')->with('success', 'Warga dihapus!');
     }
 }

@@ -252,6 +252,30 @@
                 transform: translateY(0);
             }
         }
+    .whatsapp-float {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+        background-color: #25D366;
+        color: #fff;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        z-index: 999;
+        transition: all 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+        background-color: #20ba5a;
+        transform: scale(1.1);
+    }
+
+    .whatsapp-float i {
+        margin-top: 16px;
+    }
     </style>
 </head>
 
@@ -263,7 +287,7 @@
             <ul>
                 <li><a href="{{ route('dashboard') }}"><i class="ti-info-alt"></i> Dashboard</a></li>
                 <li><a href="{{ route('kategori.index') }}">Categories</a></li>
-                <li><a href="#">Listing</a></li>
+                <li><a href="{{ route('warga.index') }}">Warga</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
         </nav>
@@ -317,6 +341,11 @@
                 </div>
             </div>
         </div>
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/62895329322457?text=Halo%20Admin%20Desa%2C%20saya%20ingin%20bertanya%20tentang%20aset%20desa."
+   class="whatsapp-float" target="_blank">
+   <i class="bi bi-whatsapp"></i>
+</a>
 
         <footer>
             <p>© 2025 Inventaris Aset Desa | Made by <span>Kel 9 (elin)</span></p>
