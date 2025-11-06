@@ -9,7 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Kategori_inventarisController;
 
 Route::get('/', function () {
-    return view('home');
+    return view('pages.guest.dashboard');
 });
 
 Route::GET('/auth', [AuthController::class, 'index']);
