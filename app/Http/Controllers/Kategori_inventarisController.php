@@ -9,32 +9,32 @@ class Kategori_inventarisController extends Controller
     public function index()
     {
         $kategori = Kategori::all();
-        return view('pages.guest.kategori.index', compact('kategori'));
+        return view('pages.kategori.index', compact('kategori'));
     }
 
     public function create()
     {
-        return view('pages.guest.kategori.create');
+        return view('pages.kategori.create');
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'nama'      => 'required|string|max:255',
             'kode'      => 'required|string|max:50',
             'deskripsi' => 'nullable|string',
         ]);
 
-        Kategori::create($validated);
+        Kategori::create($request->all());
 
         return redirect()
-            ->route('kategori.index');
+            ->route('kategori.index')->with('success', 'Data kategori berhasil ditambahkan!');
     }
 
     public function edit($id)
     {
         $kategori = Kategori::findOrFail($id);
-        return view('pages.guest.kategori.edit', compact('kategori'));
+        return view('pages.kategori.edit', compact('kategori'));
     }
 
     public function update(Request $request, $kategori_id)

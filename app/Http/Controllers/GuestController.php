@@ -9,6 +9,6 @@ class GuestController extends Controller
     // Menampilkan halaman tentang
     public function tentang()
     {
-        return view('pages.guest.tentang');
+        return view('pages.guest.about');
     }
 }

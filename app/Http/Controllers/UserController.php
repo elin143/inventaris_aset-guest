@@ -14,7 +14,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('pages.guest.login.login', compact('users'));
+        return view('pages.user.login', compact('users'));
     }
 
     /**
@@ -69,7 +69,7 @@ class UserController extends Controller
      */
     public function showRegisterForm()
     {
-        return view('pages.guest.login.register');
+        return view('pages.user.register');
     }
 
     /**

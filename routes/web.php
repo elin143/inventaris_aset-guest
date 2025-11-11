@@ -51,6 +51,8 @@ Route::post('/login', [UserController::class, 'login'])->name('login.process');
 
 Route::get('/register', [UserController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [UserController::class, 'register'])->name('register.process');
+// Logout
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/tentang', [GuestController::class, 'tentang'])->name('tentang');
 

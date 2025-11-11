@@ -13,7 +13,7 @@ class WargaController extends Controller
     public function index()
     {
         $warga = Warga::all();
-        return view('pages.guest.warga.index', compact('warga'));
+        return view('pages.warga.index', compact('warga'));
     }
 
     /**
@@ -21,7 +21,7 @@ class WargaController extends Controller
      */
     public function create()
     {
-        return view('pages.guest.warga.create');
+        return view('pages.warga.create');
     }
 
     /**
@@ -62,7 +62,7 @@ class WargaController extends Controller
     public function edit(string $id)
     {
         $warga = Warga::findOrFail($id);
-        return view('pages.guest.warga.edit', compact('warga'));
+        return view('pages.warga.edit', compact('warga'));
     }
 
     /**
@@ -82,6 +82,6 @@ class WargaController extends Controller
     {
         $warga = Warga::findOrFail($id);
         $warga->delete();
-        return redirect()->route('pages.guest.warga.index')->with('success', 'Warga dihapus!');
+        return redirect()->route('warga.index')->with('success', 'Warga dihapus!');
     }
 }
