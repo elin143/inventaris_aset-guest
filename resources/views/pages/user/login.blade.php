@@ -55,7 +55,7 @@
             <div class="col-lg-5 col-md-8 col-sm-10">
                 <div class="login-card">
                     <div class="text-center mb-4">
-                        <img src="{{ asset('assets-guest/img/logo.png') }}" alt="Logo" width="80">
+                        <img src="{{ asset('assets-guest/img/icon.png') }}" alt="Logo" width="80">
                         <h3 class="mt-3">Login Akun</h3>
                         <p class="text-muted">Silakan masuk untuk melanjutkan</p>
                     </div>
