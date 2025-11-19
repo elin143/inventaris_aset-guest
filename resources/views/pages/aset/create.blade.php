@@ -95,10 +95,6 @@
                             </div>
                         </form>
                     </div>
-
-                    <div class="card-footer text-muted text-center small py-2">
-                        &copy; {{ date('Y') }} Sistem Data Aset
-                    </div>
                 </div>
             </div>
         </div>
