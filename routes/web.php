@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AsetController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GuestController;
@@ -56,3 +57,20 @@ Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 Route::get('/tentang', [GuestController::class, 'tentang'])->name('tentang');
 
+// INDEX
+Route::get('/aset', [AsetController::class, 'index'])->name('aset.index');
+
+// TAMPIL FORM CREATE
+Route::get('/aset/create', [AsetController::class, 'create'])->name('aset.create');
+
+// SIMPAN DATA
+Route::post('/aset/store', [AsetController::class, 'store'])->name('aset.store');
+
+// EDIT
+Route::get('/aset/{id}/edit', [AsetController::class, 'edit'])->name('aset.edit');
+
+// UPDATE
+Route::put('/aset/{id}/update', [AsetController::class, 'update'])->name('aset.update');
+
+// DELETE
+Route::delete('/aset/{id}/delete', [AsetController::class, 'destroy'])->name('aset.destroy');

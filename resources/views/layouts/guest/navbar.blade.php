@@ -11,10 +11,16 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto">
-                        <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
-                        <a href="{{ route('tentang') }}" class="nav-item nav-link {{ request()->routeIs('tentang') ? 'active' : '' }}">About</a>
-                        <a href="{{ route('warga.index') }}" class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Warga</a>
-                        <a href="{{ route('kategori.index') }}" class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">kategori</a>
+                        <a href="{{ route('dashboard') }}"
+                            class="nav-item nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">Home</a>
+                        <a href="{{ route('tentang') }}"
+                            class="nav-item nav-link {{ request()->routeIs('tentang') ? 'active' : '' }}">About</a>
+                        <a href="{{ route('warga.index') }}"
+                            class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">Warga</a>
+                        <a href="{{ route('kategori.index') }}"
+                            class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">kategori</a>
+                        <a href="{{ route('aset.index') }}"
+                            class="nav-item nav-link {{ request()->routeIs('home') ? 'active' : '' }}">aset</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu bg-light rounded-0 m-0">
