@@ -10,23 +10,18 @@
 </head>
 
 @extends('layouts.guest.app')
+
+@section('title', 'Daftar Aset')
+
 @section('content')
 
-<body>
-    <!-- Spinner -->
-    <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;"></div>
-    </div>
-
-    <!-- Header -->
-    <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
+    <!-- Page Header -->
+    <div class="container-fluid page-header py-5 mb-5 wow fadeIn">
         <div class="container text-center py-5">
             <h1 class="display-4 text-dark mb-4 animated slideInDown">Daftar Aset</h1>
         </div>
     </div>
 
-    <!-- Daftar Aset -->
     <div class="container-xxl py-5">
         <div class="container">
 
@@ -37,7 +32,8 @@
                 </div>
             @endif
 
-            <div class="d-flex justify-content-between align-items-center mb-5">
+            <!-- Header & Button -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <p class="fs-5 fw-medium fst-italic text-primary mb-1">Data Aset</p>
                     <h1 class="display-6 mb-0">Daftar Aset</h1>
@@ -47,43 +43,67 @@
                 </a>
             </div>
 
+            <!-- Search -->
+            <form method="GET" action="{{ route('aset.index') }}" class="row mb-4">
+                <div class="row">
+                    <div class="col-md-2">
+                        <select name="kondisi" class="form-select" onchange="this.form.submit()">
+                            <option value="">all</option>
+                            <option value="Baik" {{ request('kondisi') == 'Baik' ? 'selected' : '' }}>
+                                Baik</option>
+                            <option value="Rusak Ringan" {{ request('kondisi') == 'Rusak Ringan' ? 'selected' : '' }}>
+                                Rusak Ringan</option>
+                            <option value="Rusak Berat" {{ request('kondisi') == 'Rusak Berat' ? 'selected' : '' }}>
+                                Rusak Berat</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" value="{{ request('search') }}"
+                                placeholder="Cari aset...">
+                            <button class="btn btn-outline-secondary" type="submit">
+                                <i class="bi bi-search"></i>
+                            </button>
+
+                            @if (request('search'))
+                                <a href="{{ route('aset.index') }}" class="btn btn-outline-danger">
+                                    <i class="bi bi-x-circle"></i>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
+            </form>
+
+            <!-- Pagination Top -->
+            <div class="d-flex justify-content-center mb-4">
+                {{ $aset->links('pagination::bootstrap-5') }}
+            </div>
+
+            <!-- Cards -->
             <div class="row g-4">
                 @forelse ($aset as $index => $item)
-                    <div class="col-lg-4 col-md-6 col-sm-12">
-                        <div class="card h-100 shadow-lg overflow-hidden hover-card" style="border-radius: 20px;">
-                            <div class="card-body p-4 text-dark" style="background-color: #d9f8c4;">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card shadow-lg border-0 h-100" style="border-radius: 18px;">
+                            <div class="card-body p-4" style="background-color: #d9f8c4; border-radius: 18px;">
 
                                 <div class="d-flex align-items-center mb-3">
-                                    <div class="flex-shrink-0">
-                                        <i class="bi bi-box-seam text-dark" style="font-size: 2rem;"></i>
-                                    </div>
-                                    <div class="flex-grow-1 ms-3">
-                                        <h5 class="card-title mb-0 fw-bold text-dark">{{ $item->nama_aset }}</h5>
-                                        <small class="text-dark">#{{ $index + 1 }}</small>
+                                    <i class="bi bi-box-seam text-dark" style="font-size: 2.2rem;"></i>
+                                    <div class="ms-3">
+                                        <h5 class="fw-bold text-dark mb-1">{{ $item->nama_aset }}</h5>
+                                        <small class="text-muted">#{{ $index + 1 }}</small>
                                     </div>
                                 </div>
 
                                 <ul class="list-unstyled mb-4">
-                                    <li>
-                                        <i class="bi bi-tag text-dark me-2"></i>
-                                        <strong>Kategori:</strong> {{ $item->kategori->nama ?? '-' }}
-                                    </li>
-
-                                    <li>
-                                        <i class="bi bi-upc-scan text-dark me-2"></i>
-                                        <strong>Kode Aset:</strong> {{ $item->kode_aset }}
-                                    </li>
-
-                                    <li>
-                                        <i class="bi bi-cash-coin text-dark me-2"></i>
-                                        <strong>Nilai Perolehan:</strong> Rp
-                                        {{ number_format($item->nilai_perolehan, 0, ',', '.') }}
-                                    </li>
-
-                                    <li>
-                                        <i class="bi bi-calendar-check text-dark me-2"></i>
-                                        <strong>Tanggal Perolehan:</strong> {{ $item->tgl_perolehan }}
-                                    </li>
+                                    <li><i class="bi bi-tag me-2"></i><strong>Kategori:</strong>
+                                        {{ $item->kategori->nama ?? '-' }}</li>
+                                    <li><i class="bi bi-upc-scan me-2"></i><strong>Kode Aset:</strong>
+                                        {{ $item->kode_aset }}</li>
+                                    <li><i class="bi bi-cash-coin me-2"></i><strong>Nilai:</strong> Rp
+                                        {{ number_format($item->nilai_perolehan, 0, ',', '.') }}</li>
+                                    <li><i class="bi bi-calendar-check me-2"></i><strong>Tanggal:</strong>
+                                        {{ $item->tgl_perolehan }}</li>
+                                    <li><i class="bi bi-tools me-2"></i><strong>Kondisi:</strong> {{ $item->kondisi }}</li>
                                 </ul>
 
                                 <div class="d-flex justify-content-between">
@@ -112,10 +132,14 @@
                 @endforelse
             </div>
 
+            <!-- Pagination Bottom -->
+            <div class="d-flex justify-content-center mt-4">
+                {{ $aset->links('pagination::bootstrap-5') }}
+            </div>
+
         </div>
     </div>
 
-</body>
 @endsection
 
 </html>

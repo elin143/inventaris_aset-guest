@@ -1,38 +1,34 @@
 <?php
 namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Models\Aset;
-use App\Models\Kategori;
 use Faker\Factory as Faker;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Facades\DB;
 
 class CreateAsetDummy extends Seeder
 {
-    public function run(): void
-    {
-        $faker = Faker::create();
+ public function run()
+{
+    $faker = Faker::create('id_ID');
 
-        // Ambil semua kategori_id, bukan id
-        $kategoriIds = Kategori::pluck('kategori_id')->toArray();
+    // ambil semua kategori_id untuk foreign key
+    $kategoriIDs = DB::table('kategori_aset')->pluck('kategori_id')->toArray();
 
-        if (empty($kategoriIds)) {
-            $this->command->warn('Tidak ada data kategori. Seeder Aset dilewati.');
-            return;
-        }
-
-        for ($i = 1; $i <= 10; $i++) {
-            Aset::create([
-                'kategori_id'      => $faker->randomElement($kategoriIds),
-                'kode_aset'        => 'AST-' . strtoupper($faker->bothify('??###')),
-                'nama_aset'        => $faker->word(),
-                'tgl_perolehan'    => $faker->date(),
-                'nilai_perolehan'  => $faker->randomFloat(2, 100000, 5000000),
-                'kondisi'          => $faker->randomElement(['Baik', 'Rusak Ringan', 'Rusak Berat']),
-            ]);
-        }
-
-        $this->command->info('10 data dummy aset berhasil dibuat!');
+    foreach (range(1, 500) as $index) {
+        DB::table('aset')->insert([
+            'kategori_id'      => $faker->randomElement($kategoriIDs),
+            'kode_aset'        => $faker->unique()->numerify('AST-####'),
+            'nama_aset'        => $faker->words(2, true), // contoh: "Laptop Kantor"
+            'tgl_perolehan'    => $faker->date(),
+            'nilai_perolehan'  => $faker->numberBetween(500000, 50000000), // 500 ribu - 50 jt
+            'kondisi'          => $faker->randomElement(['Baik', 'Rusak Ringan', 'Rusak Berat']),
+            'created_at'       => now(),
+            'updated_at'       => now(),
+        ]);
     }
 }
+
+}
+
 
 

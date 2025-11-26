@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Warga;
@@ -10,9 +9,16 @@ class WargaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $warga = Warga::all();
+        $filterableColumns = ['jenis_kelamin']; // sesuaikan sendiri
+$searchableColumns = ['agama','nama']; //sesuai kolom Pelanggan
+
+        $warga = Warga::filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->paginate(10)
+            ->withQueryString();
+
         return view('pages.warga.index', compact('warga'));
     }
 
@@ -31,13 +37,13 @@ class WargaController extends Controller
     {
         // Validasi data
         $request->validate([
-            'no_ktp' => 'required|unique:warga,no_ktp|max:20',
-            'nama' => 'required|string|max:100',
+            'no_ktp'        => 'required|unique:warga,no_ktp|max:20',
+            'nama'          => 'required|string|max:100',
             'jenis_kelamin' => 'required',
-            'agama' => 'required|string|max:50',
-            'pekerjaan' => 'required|string|max:100',
-            'telp' => 'nullable|string|max:20',
-            'email' => 'nullable|email|max:100',
+            'agama'         => 'required|string|max:50',
+            'pekerjaan'     => 'required|string|max:100',
+            'telp'          => 'nullable|string|max:20',
+            'email'         => 'nullable|email|max:100',
         ]);
 
         // Simpan ke database
@@ -46,7 +52,6 @@ class WargaController extends Controller
         // Redirect kembali ke halaman daftar warga
         return redirect()->route('warga.index')->with('success', 'Data warga berhasil ditambahkan!');
     }
-
 
     /**
      * Display the specified resource.

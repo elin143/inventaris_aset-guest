@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 
 class Kategori_inventarisController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kategori = Kategori::all();
+        $filterableColumns = ['nama']; // sesuaikan sendiri
+        $searchableColumns = ['nama']; //sesuai kolom Kategori
+
+        $kategori = Kategori::filter($request, $filterableColumns)
+            ->search($request, $searchableColumns)
+            ->paginate(10)
+            ->withQueryString();
         return view('pages.kategori.index', compact('kategori'));
     }
 
