@@ -16,7 +16,7 @@ $searchableColumns = ['agama','nama']; //sesuai kolom Pelanggan
 
         $warga = Warga::filter($request, $filterableColumns)
             ->search($request, $searchableColumns)
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
 
         return view('pages.warga.index', compact('warga'));

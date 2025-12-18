@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->foreign('kategori_id')
-                ->references('id')
+                ->references('kategori_id')
                 ->on('kategori_aset')
                 ->onDelete('cascade');
         });

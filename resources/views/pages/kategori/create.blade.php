@@ -20,13 +20,13 @@
     <!-- Header -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container text-center py-5">
-            <h1 class="display-4 text-dark mb-4 animated slideInDown">Tambah Warga</h1>
+            <h1 class="display-4 text-dark mb-4 animated slideInDown">Tambah Kategori</h1>
         </div>
     </div>
 
 
     <!-- Form Tambah Kategori -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl col-md-6">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">

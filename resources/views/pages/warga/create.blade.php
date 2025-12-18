@@ -24,7 +24,7 @@
     </div>
 
     <!-- Form Tambah Warga -->
-<div class="container-xxl py-5">
+<div class="container-xxl col-md-6">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">

@@ -87,7 +87,7 @@
                         @forelse ($warga as $index => $item)
                             <div class="col-lg-4 col-md-6 col-sm-12">
                                 <div class="card h-100 shadow-lg overflow-hidden hover-card "style="border-radius: 20px;">
-                                    <div class="card-body p-4 text-dark" style="background-color: #789666; ">
+                                    <div class="card-body p-4 text-dark" style="background-color: #d9f8c4; ">
 
                                         <div class="d-flex align-items-center mb-3">
                                             <div class="flex-shrink-0">

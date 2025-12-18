@@ -2,78 +2,112 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return view('dashboard');
+        $users = User::all();
+        return view('pages.user.login', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function showLoginForm()
     {
-        //
+        return view('guest.login.login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function login(Request $request)
     {
-        //dd($request->all());
-
         $request->validate([
-		    'nama'  => 'required|max:10',
-		    'email' => ['required','email'],
-		    'pertanyaan' => 'required|max:300|min:8',
-        ],[
-            'nama.required'=>'nama tidak boleh kosong',
-            'email.email'=>'email tidak valid'
+            'email'    => 'required|email',
+            'password' => 'required',
         ]);
-        $data['nama']  =$request->nama;
-        $data['email']  =$request->email;
-        $data['pertanyaan']  =$request->pertanyaan;
 
-        return view('home-respon', $data);
+        // Pakai Auth::attempt()
+        if (Auth::attempt($request->only('email', 'password'))) {
+
+            $request->session()->regenerate();
+
+            return redirect()->route('dashboard')->with('success', 'Login berhasil!');
+        }
+
+        return back()->with('error', 'Email atau password salah.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function logout(Request $request)
     {
-        //
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'Berhasil logout.');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function showRegisterForm()
+    {
+        return view('pages.user.register');
+    }
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+
+        ]);
+
+        // Login otomatis setelah register
+        Auth::login($user);
+
+        return redirect()->route('login')->with('success', 'Registrasi berhasil!');
+    }
+
     public function edit(string $id)
     {
-        //
+        // perbaikan dari $users menjadi $user
+        $user = User::findOrFail($id);
+        return view('guest.users.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6|confirmed',
+        ]);
+
+        $data = [
+            'name'  => $request->name,
+            'email' => $request->email,
+        ];
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('user.index')->with('success', 'User berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        User::findOrFail($id)->delete();
+        return redirect()->route('user.index')->with('success', 'User berhasil dihapus.');
     }
 }

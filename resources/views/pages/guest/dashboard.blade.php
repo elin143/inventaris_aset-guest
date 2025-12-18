@@ -24,53 +24,69 @@
     <!-- Spinner End -->
 
     <!-- Carousel Start -->
-    <div class="container-fluid px-0 mb-5">
-        <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="w-100" src="{{ asset('assets-guest/img/dash-1.jpg') }}" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7 text-center">
-                                    <p class="fs-4 text-white animated zoomIn">Welcome to <strong class="text-dark">Villagio</strong></p>
-                                    <h1 class="display-1 text-dark mb-4 animated zoomIn">Efficient & Transparent Village Asset Management</h1>
-                                    <a href=""
-                                        class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">Explore More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="w-100" src="{{ asset('assets-guest/img/dash-2.jpg') }}" alt="Image">
-                    <div class="carousel-caption">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-7 text-center">
-                                    <p class="fs-4 text-white animated zoomIn">Welcome to <strong
-                                            class="text-dark">Villagio</strong></p>
-                                    <h1 class="display-1 text-dark mb-4 animated zoomIn">Village Asset Management</h1>
-                                    <a href=""
-                                        class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">Explore More</a>
-                                </div>
+<div class="container-fluid px-0 mb-5">
+    <div id="header-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+        <div class="carousel-inner">
+
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <img class="w-100" src="{{ asset('assets-guest/img/dash-1.jpg') }}" alt="Image">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7 text-center">
+                                <p class="fs-4 text-white animated zoomIn">
+                                    Selamat Datang di <strong class="text-dark">Villagio</strong>
+                                </p>
+                                <h1 class="display-1 text-dark mb-4 animated zoomIn">
+                                    Sistem Pengelolaan Aset Desa yang Transparan & Efisien
+                                </h1>
+                                <a href="" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">
+                                    Pelajari Lebih Lanjut
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <img class="w-100" src="{{ asset('assets-guest/img/dash-2.jpg') }}" alt="Image">
+                <div class="carousel-caption">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7 text-center">
+                                <p class="fs-4 text-white animated zoomIn">
+                                    Selamat Datang di <strong class="text-dark">Villagio</strong>
+                                </p>
+                                <h1 class="display-1 text-dark mb-4 animated zoomIn">
+                                    Digitalisasi Inventaris Aset Desa yang Lebih Mudah
+                                </h1>
+                                <a href="" class="btn btn-light rounded-pill py-3 px-5 animated zoomIn">
+                                    Pelajari Lebih Lanjut
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+
     </div>
+</div>
+
     <!-- Carousel End -->
 
     <!-- About Start -->
@@ -93,123 +109,154 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="section-title">
-                        <p class="fs-5 fw-medium fst-italic text-primary">About Us</p>
-                        <h1 class="display-6">The success history of TEA House in 25 years</h1>
-                    </div>
-                    <div class="row g-3 mb-4">
-                        <div class="col-sm-4">
-                            <img class="img-fluid bg-white w-100" src="{{ asset('assets-guest/img/tentang-5.jpg') }}"
-                                alt="">
-                        </div>
-                        <div class="col-sm-8">
-                            <h5>Our tea is one of the most popular drinks in the world</h5>
-                            <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam
-                                amet diam et eos. Clita erat ipsum et lorem et sit</p>
-                        </div>
-                    </div>
-                    <div class="border-top mb-4"></div>
-                    <div class="row g-3">
-                        <div class="col-sm-8">
-                            <h5>Daily use of a cup of tea is good for your health</h5>
-                            <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam
-                                amet diam et eos. Clita erat ipsum et lorem et sit</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <img class="img-fluid bg-white w-100" src="{{ asset('assets-guest/img/tentang-6.jpg') }}"
-                                alt="">
-                        </div>
-                    </div>
-                </div>
+<div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+    <div class="section-title">
+        <p class="fs-5 fw-medium fst-italic text-primary">Tentang Sistem</p>
+        <h1 class="display-6">Sejarah dan Pengembangan Sistem Inventaris Aset Desa</h1>
+    </div>
+
+    <!-- Row 1 -->
+    <div class="row g-3 mb-4">
+        <div class="col-sm-4">
+            <img class="img-fluid bg-white w-100" src="{{ asset('assets-guest/img/tentang-5.jpg') }}" alt="">
+        </div>
+        <div class="col-sm-8">
+            <h5>Sistem modern untuk pengelolaan aset desa yang lebih transparan</h5>
+            <p class="mb-0">
+                Sistem Inventaris Aset Desa dirancang untuk membantu pemerintah desa dalam mencatat,
+                mengelola, dan memantau seluruh aset secara digital, cepat, dan akurat. Dengan sistem ini,
+                proses pendataan menjadi lebih efisien dan minim kesalahan.
+            </p>
+        </div>
+    </div>
+
+    <div class="border-top mb-4"></div>
+
+    <!-- Row 2 -->
+    <div class="row g-3">
+        <div class="col-sm-8">
+            <h5>Mendukung pengambilan keputusan yang lebih tepat dan efektif</h5>
+            <p class="mb-0">
+                Dengan informasi aset yang lengkap dan terstruktur, perangkat desa dapat merencanakan
+                pengelolaan, pemeliharaan, dan alokasi anggaran dengan lebih baik. Sistem ini juga
+                mempermudah pelaporan kepada masyarakat dan pihak terkait.
+            </p>
+        </div>
+        <div class="col-sm-4">
+            <img class="img-fluid bg-white w-100" src="{{ asset('assets-guest/img/tentang-6.jpg') }}" alt="">
+        </div>
+    </div>
+</div>
+
             </div>
         </div>
     </div>
     <!-- About End -->
 
     <!-- Article Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
-                    <img class="img-fluid" src="{{ asset('assets-guest/img/desa.jpg') }}" alt="">
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-5 wow fadeIn" data-wow-delay="0.1s">
+                <img class="img-fluid" src="{{ asset('assets-guest/img/desa.jpg') }}" alt="">
+            </div>
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="section-title">
+                    <p class="fs-5 fw-medium fst-italic text-primary">Artikel Unggulan</p>
+                    <h1 class="display-6">Perkembangan Sistem Inventaris Aset Desa dari Waktu ke Waktu</h1>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="section-title">
-                        <p class="fs-5 fw-medium fst-italic text-primary">Featured Acticle</p>
-                        <h1 class="display-6">The history of tea leaf in the world</h1>
-                    </div>
-                    <p class="mb-4">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam
-                        et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo magna dolore erat
-                        amet</p>
-                    <p class="mb-4">Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem
-                        et sit, sed stet lorem sit clita duo justo magna. Tempor erat elitr rebum at clita.</p>
-                    <a href="" class="btn btn-primary rounded-pill py-3 px-5">Read More</a>
-                </div>
+                <p class="mb-4">
+                    Pengelolaan aset desa merupakan bagian penting dari pembangunan dan transparansi pemerintah desa.
+                    Seiring berkembangnya teknologi, pencatatan aset yang sebelumnya dilakukan secara manual kini
+                    beralih ke sistem digital yang lebih akurat, cepat, dan mudah diakses.
+                </p>
+                <p class="mb-4">
+                    Sistem Inventaris Aset Desa membantu perangkat desa dalam memantau kondisi aset, melakukan
+                    pemeliharaan, dan menyusun laporan dengan lebih efektif. Dengan data yang terpusat dan terstruktur,
+                    desa dapat meningkatkan tata kelola dan pelayanan kepada masyarakat.
+                </p>
+                <a href="" class="btn btn-primary rounded-pill py-3 px-5">Baca Selengkapnya</a>
             </div>
         </div>
     </div>
+</div>
+
     <!-- Article End -->
 
 
     <!-- Video Start -->
-    <div class="container-fluid video my-5">
-        <div class="container">
-            <div class="row g-0">
-                <div class="col-lg-6 py-5 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="py-5">
-                        <h1 class="display-6 mb-4">Tea is a drink of <span class="text-white">health</span> and <span
-                                class="text-white">beauty</span></h1>
-                        <h5 class="fw-normal lh-base fst-italic text-white mb-5">Tempor erat elitr rebum at clita. Diam
-                            dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit</h5>
-                        <div class="row g-4 mb-5">
-                            <div class="col-sm-6">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
-                                        <i class="fa fa-check"></i>
-                                    </div>
-                                    <span class="text-dark">Great tea assortment</span>
+<div class="container-fluid video my-5">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-lg-6 py-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="py-5">
+                    <h1 class="display-6 mb-4">
+                        Sistem Inventaris <span class="text-white">Aset Desa</span> untuk
+                        <span class="text-white">Transparansi</span> & <span class="text-white">Akuntabilitas</span>
+                    </h1>
+
+                    <h5 class="fw-normal lh-base fst-italic text-white mb-5">
+                        Pengelolaan aset desa berbasis digital membantu pemerintahan desa dalam menjaga, mencatat,
+                        dan memantau seluruh aset secara lebih akurat, cepat, dan transparan untuk kesejahteraan
+                        masyarakat.
+                    </h5>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                    <i class="fa fa-check"></i>
                                 </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
-                                        <i class="fa fa-check"></i>
-                                    </div>
-                                    <span class="text-dark">Spices & additives</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
-                                        <i class="fa fa-check"></i>
-                                    </div>
-                                    <span class="text-dark">Unique accessories</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="d-flex align-items-center">
-                                    <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
-                                        <i class="fa fa-check"></i>
-                                    </div>
-                                    <span class="text-dark">Good for health & beauty</span>
-                                </div>
+                                <span class="text-dark">Pencatatan aset lebih terstruktur</span>
                             </div>
                         </div>
-                        <a class="btn btn-light rounded-pill py-3 px-5" href="">Explore More</a>
+
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark">Pemantauan kondisi aset mudah</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark">Laporan cepat & akurat</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0 btn-lg-square bg-white text-primary rounded-circle me-3">
+                                    <i class="fa fa-check"></i>
+                                </div>
+                                <span class="text-dark">Mendukung transparansi desa</span>
+                            </div>
+                        </div>
                     </div>
+
+                    <a class="btn btn-light rounded-pill py-3 px-5" href="">
+                        Pelajari Lebih Lanjut
+                    </a>
                 </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="h-100 d-flex align-items-center justify-content-center" style="min-height: 300px;">
-                        <button type="button" class="btn-play" data-bs-toggle="modal"
-                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
-                            <span></span>
-                        </button>
-                    </div>
+            </div>
+
+            <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
+                <div class="h-100 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+                    <button type="button" class="btn-play" data-bs-toggle="modal"
+                        data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">
+                        <span></span>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
     <!-- Video End -->
 
 
@@ -233,48 +280,6 @@
         </div>
     </div>
     <!-- Video Modal End -->
-
-    <!-- Contact Start -->
-    <div class="container-xxl contact py-5">
-        <div class="container">
-            <div class="section-title text-center mx-auto wow fadeInUp" data-wow-delay="0.1s"
-                style="max-width: 500px;">
-                <p class="fs-5 fw-medium fst-italic text-primary">Contact Us</p>
-                <h1 class="display-6">Contact us right now</h1>
-            </div>
-            <div class="row justify-content-center wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-8">
-                    <p class="text-center mb-5">Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat
-                        ipsum et lorem et sit, sed stet lorem sit clita duo justo Diam dolor diam ipsum sit. Aliqu diam
-                        amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo</p>
-                    <div class="row g-5">
-                        <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="0.3s">
-                            <div class="btn-square mx-auto mb-3">
-                                <i class="fa fa-envelope fa-2x text-white"></i>
-                            </div>
-                            <p class="mb-2">info@example.com</p>
-                            <p class="mb-0">support@example.com</p>
-                        </div>
-                        <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="btn-square mx-auto mb-3">
-                                <i class="fa fa-phone fa-2x text-white"></i>
-                            </div>
-                            <p class="mb-2">+012 345 67890</p>
-                            <p class="mb-0">+012 345 67890</p>
-                        </div>
-                        <div class="col-md-4 text-center wow fadeInUp" data-wow-delay="0.5s">
-                            <div class="btn-square mx-auto mb-3">
-                                <i class="fa fa-map-marker-alt fa-2x text-white"></i>
-                            </div>
-                            <p class="mb-2">123 Street</p>
-                            <p class="mb-0">New York, USA</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Contact Start -->
 
 @endsection
 </body>

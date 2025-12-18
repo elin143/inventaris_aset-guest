@@ -58,4 +58,9 @@ class DashboardController extends Controller
     {
         //
     }
+
+    public function developer()
+{
+    return view('pages.guest.developer');
+}
 }

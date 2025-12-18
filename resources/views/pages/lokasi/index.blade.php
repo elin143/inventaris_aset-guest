@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Daftar Aset</title>
+    <title>Daftar Lokasi Aset</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <link href="{{ asset('assets-guest/img/favicon.ico') }}" rel="icon">
@@ -11,14 +11,14 @@
 
 @extends('layouts.guest.app')
 
-@section('title', 'Daftar Aset')
+@section('title', 'Daftar Lokasi Aset')
 
 @section('content')
 
     <!-- Page Header -->
     <div class="container-fluid page-header py-5 mb-5 wow fadeIn">
         <div class="container text-center py-5">
-            <h1 class="display-4 text-dark mb-4 animated slideInDown">Daftar Aset</h1>
+            <h1 class="display-4 text-dark mb-4 animated slideInDown">Daftar Lokasi Aset</h1>
         </div>
     </div>
 
@@ -35,38 +35,27 @@
             <!-- Header & Button -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <p class="fs-5 fw-medium fst-italic text-primary mb-1">Data Aset</p>
-                    <h1 class="display-6 mb-0">Daftar Aset</h1>
+                    <p class="fs-5 fw-medium fst-italic text-primary mb-1">Data Lokasi Aset</p>
+                    <h1 class="display-6 mb-0">Daftar Lokasi Aset</h1>
                 </div>
-                <a href="{{ route('aset.create') }}" class="btn btn-primary rounded-pill">
-                    <i class="bi bi-plus-circle"></i> Tambah Aset
+                <a href="{{ route('lokasi.create') }}" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Tambah Lokasi
                 </a>
             </div>
 
             <!-- Search -->
-            <form method="GET" action="{{ route('aset.index') }}" class="row mb-4">
+            <form method="GET" action="{{ route('lokasi.index') }}" class="row mb-4" enc>
                 <div class="row">
-                    <div class="col-md-2">
-                        <select name="kondisi" class="form-select" onchange="this.form.submit()">
-                            <option value="">all</option>
-                            <option value="Baik" {{ request('kondisi') == 'Baik' ? 'selected' : '' }}>
-                                Baik</option>
-                            <option value="Rusak Ringan" {{ request('kondisi') == 'Rusak Ringan' ? 'selected' : '' }}>
-                                Rusak Ringan</option>
-                            <option value="Rusak Berat" {{ request('kondisi') == 'Rusak Berat' ? 'selected' : '' }}>
-                                Rusak Berat</option>
-                        </select>
-                    </div>
                     <div class="col-md-4">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" value="{{ request('search') }}"
-                                placeholder="Cari aset...">
+                                placeholder="Cari berdasarkan keterangan / lokasi...">
                             <button class="btn btn-outline-secondary" type="submit">
                                 <i class="bi bi-search"></i>
                             </button>
 
                             @if (request('search'))
-                                <a href="{{ route('aset.index') }}" class="btn btn-outline-danger">
+                                <a href="{{ route('lokasi.index') }}" class="btn btn-outline-danger">
                                     <i class="bi bi-x-circle"></i>
                                 </a>
                             @endif
@@ -76,44 +65,54 @@
 
             <!-- Pagination Top -->
             <div class="d-flex justify-content-center mb-4">
-                {{ $aset->links('pagination::bootstrap-5') }}
+                {{ $lokasi->links('pagination::bootstrap-5') }}
             </div>
 
             <!-- Cards -->
             <div class="row g-4">
-                @forelse ($aset as $index => $item)
+                @forelse ($lokasi as $index => $item)
                     <div class="col-lg-4 col-md-6">
                         <div class="card shadow-lg border-0 h-100" style="border-radius: 18px;">
                             <div class="card-body p-4" style="background-color: #d9f8c4; border-radius: 18px;">
 
                                 <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-box-seam text-dark" style="font-size: 2.2rem;"></i>
+                                    <i class="bi bi-geo-alt text-dark" style="font-size: 2.2rem;"></i>
                                     <div class="ms-3">
-                                        <h5 class="fw-bold text-dark mb-1">{{ $item->nama_aset }}</h5>
-                                        <small class="text-muted">#{{ $index + 1 }}</small>
+                                        <h5 class="fw-bold text-dark mb-1">
+                                            Lokasi #{{ $index + 1 }}
+                                        </h5>
+                                        <small class="text-muted">Aset: {{ $item->aset->nama_aset ?? '-' }}</small>
                                     </div>
                                 </div>
 
                                 <ul class="list-unstyled mb-4">
-                                    <li><i class="bi bi-tag me-2"></i><strong>Kategori:</strong>
-                                        {{ $item->kategori->nama ?? '-' }}</li>
-                                    <li><i class="bi bi-upc-scan me-2"></i><strong>Kode Aset:</strong>
-                                        {{ $item->kode_aset }}</li>
-                                    <li><i class="bi bi-cash-coin me-2"></i><strong>Nilai:</strong> Rp
-                                        {{ number_format($item->nilai_perolehan, 0, ',', '.') }}</li>
-                                    <li><i class="bi bi-calendar-check me-2"></i><strong>Tanggal:</strong>
-                                        {{ $item->tgl_perolehan }}</li>
-                                    <li><i class="bi bi-tools me-2"></i><strong>Kondisi:</strong> {{ $item->kondisi }}</li>
+                                    <li>
+                                        <i class="bi bi-info-circle me-2"></i>
+                                        <strong>Keterangan:</strong> {{ $item->keterangan ?? '-' }}
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-map me-2"></i>
+                                        <strong>Lokasi:</strong> {{ $item->lokasi_text ?? '-' }}
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-signpost-split me-2"></i>
+                                        <strong>RT:</strong> {{ $item->rt ?? '-' }}
+                                    </li>
+
+                                    <li>
+                                        <i class="bi bi-signpost me-2"></i>
+                                        <strong>RW:</strong> {{ $item->rw ?? '-' }}
+                                    </li>
+
                                     <li>
                                         <i class="bi bi-images me-2"></i>
                                         <strong>Foto:</strong>
 
-                                        @if ($item->media->count())
-                                            <div class="d-flex gap-2 flex-wrap mt-2">
-                                                @foreach ($item->media as $media)
-                                                    <img src="{{ asset('storage/' . $media->file_url) }}" width="200">
-                                                @endforeach
-                                            </div>
+                                        @if ($item->media->isNotEmpty())
+                                            <img src="{{ asset('storage/' . $item->media->first()->file_url) }}"
+                                                class="img-fluid rounded" style="height:180px; object-fit:cover;">
                                         @else
                                             <img src="{{ asset('assets-guest/img/placeholder.png') }}" class="img-fluid rounded"
                                                 style="height:180px; object-fit:cover;">
@@ -123,13 +122,13 @@
                                 </ul>
 
                                 <div class="d-flex justify-content-between">
-                                    <a href="{{ route('aset.edit', $item->aset_id) }}"
+                                    <a href="{{ route('lokasi.edit', $item->lokasi_id) }}"
                                         class="btn btn-warning btn-sm rounded-pill px-3">
                                         <i class="bi bi-pencil"></i> Edit
                                     </a>
 
-                                    <form action="{{ route('aset.destroy', $item->aset_id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus aset ini?')">
+                                    <form action="{{ route('lokasi.destroy', $item->lokasi_id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus lokasi aset ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3">
@@ -143,7 +142,7 @@
                     </div>
                 @empty
                     <div class="text-center text-muted py-5">
-                        <h5>Belum ada data aset.</h5>
+                        <h5>Belum ada data lokasi aset.</h5>
                     </div>
                 @endforelse
             </div>

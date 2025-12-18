@@ -13,7 +13,7 @@ class Kategori_inventarisController extends Controller
 
         $kategori = Kategori::filter($request, $filterableColumns)
             ->search($request, $searchableColumns)
-            ->paginate(10)
+            ->paginate(12)
             ->withQueryString();
         return view('pages.kategori.index', compact('kategori'));
     }

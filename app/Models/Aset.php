@@ -45,4 +45,11 @@ class Aset extends Model
     {
         return $this->belongsTo(Kategori::class, 'kategori_id');
     }
+
+    public function media()
+{
+    return $this->hasMany(Media::class, 'ref_id')
+                ->where('ref_table', 'aset');
+}
+
 }
