@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <title>Daftar Pemeliharaan Aset</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     <link href="{{ asset('assets-guest/img/favicon.ico') }}" rel="icon">
 </head>
 
@@ -42,24 +41,34 @@
                     </p>
                     <h1 class="display-6 mb-0">Daftar Pemeliharaan Aset</h1>
                 </div>
-                <a href="{{ route('pemeliharaan.create') }}"
-                    class="btn btn-primary rounded-pill">
+                <a href="{{ route('pemeliharaan.create') }}" class="btn btn-primary rounded-pill">
                     <i class="bi bi-plus-circle"></i> Tambah Pemeliharaan
                 </a>
             </div>
+
+            <!-- 🔍 Search Bar -->
+            <form method="GET" action="{{ route('pemeliharaan.index') }}" class="mb-4">
+                <div class="input-group">
+                    <input type="text"
+                           name="search"
+                           class="form-control rounded-pill px-4"
+                           placeholder="Cari berdasarkan nama aset atau tindakan..."
+                           value="{{ request('search') }}">
+                    <button class="btn btn-primary rounded-pill ms-2 px-4">
+                        <i class="bi bi-search"></i> Cari
+                    </button>
+                </div>
+            </form>
 
             <!-- Cards -->
             <div class="row g-4">
                 @forelse ($data as $item)
                     <div class="col-lg-4 col-md-6">
-                        <div class="card shadow-lg border-0 h-100"
-                            style="border-radius: 18px;">
-                            <div class="card-body p-4"
-                                style="background-color: #d9f8c4; border-radius: 18px;">
+                        <div class="card shadow-lg border-0 h-100" style="border-radius: 18px;">
+                            <div class="card-body p-4" style="background-color: #d9f8c4; border-radius: 18px;">
 
                                 <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-tools text-dark"
-                                        style="font-size: 2.2rem;"></i>
+                                    <i class="bi bi-tools text-dark" style="font-size: 2.2rem;"></i>
                                     <div class="ms-3">
                                         <h5 class="fw-bold text-dark mb-1">
                                             Pemeliharaan #{{ $item->pemeliharaan_id }}
@@ -74,7 +83,7 @@
                                     <li>
                                         <i class="bi bi-cash-stack me-2"></i>
                                         <strong>Total Biaya:</strong>
-                                        Rp {{ number_format($item->total_biaya, 0, ',', '.') }}
+                                        Rp {{ number_format($item->biaya, 0, ',', '.') }}
                                     </li>
                                 </ul>
 
@@ -90,8 +99,8 @@
                                     </a>
 
                                     <form action="{{ route('pemeliharaan.destroy', $item->pemeliharaan_id) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus data pemeliharaan ini?')">
+                                          method="POST"
+                                          onsubmit="return confirm('Yakin ingin menghapus data pemeliharaan ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
@@ -109,6 +118,11 @@
                         <h5>Belum ada data pemeliharaan aset.</h5>
                     </div>
                 @endforelse
+            </div>
+
+            <!-- 📌 Pagination -->
+            <div class="mt-4">
+                {{ $data->links('pagination::bootstrap-5') }}
             </div>
 
         </div>

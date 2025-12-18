@@ -2,19 +2,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aset;
-use App\Models\PemeliharaanAset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades;
+use App\Models\PemeliharaanAset;
 
 class PemeliharaanAsetController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->search;
+
         $data = PemeliharaanAset::with('aset')
             ->select('pemeliharaan_id', 'aset_id')
             ->selectRaw('SUM(biaya) as total_biaya')
             ->groupBy('pemeliharaan_id', 'aset_id')
-            ->get();
 
+        // SEARCH
+            ->when($search, function ($query) use ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->whereHas('aset', function ($a) use ($search) {
+                        $a->where('nama_aset', 'LIKE', "%{$search}%");
+                    })
+                        ->orWhere('tindakan', 'LIKE', "%{$search}%");
+                });
+            })
+
+            ->orderBy('pemeliharaan_id', 'desc')
+            ->paginate(9)
+            ->withQueryString();
 
         return view('pages.pemeliharaan.index', compact('data'));
     }
