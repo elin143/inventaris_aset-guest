@@ -74,7 +74,6 @@ class AsetController extends Controller
             }
         }
 
-        // RETURN HARUS DI LUAR IF !!
         return redirect()->route('aset.index')->with('success', 'Aset berhasil ditambahkan');
     }
 

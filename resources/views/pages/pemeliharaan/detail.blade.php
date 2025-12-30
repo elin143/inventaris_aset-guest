@@ -95,6 +95,7 @@
                     </div>
                 </div>
 
+
                 <!-- Card Bukti -->
                 <div class="col-lg-4">
                     <div class="card shadow-lg border-0"
@@ -124,6 +125,63 @@
                         </div>
                     </div>
                 </div>
+<!-- LOOPING RIWAYAT PEMELIHARAAN -->
+<!-- RIWAYAT PEMELIHARAAN -->
+<div class="col-lg-8 mt-5">
+
+    <h4 class="fw-bold mb-3">Riwayat Pemeliharaan Lainnya</h4>
+
+    @foreach ($riwayat as $item)
+        @if ($item->pemeliharaan_id != $pemeliharaan->pemeliharaan_id)
+
+            <div class="card shadow-lg border-0 mb-4" style="border-radius: 18px;">
+                <div class="card-body p-4"
+                    style="background-color: #e8ffe0; border-radius: 18px;">
+
+                    <ul class="list-unstyled mb-3">
+
+                        <li class="mb-2">
+                            <i class="bi bi-calendar-event me-2"></i>
+                            <strong>Tanggal:</strong>
+                            {{ \Carbon\Carbon::parse($item->tanggal)->format('d M Y') }}
+                        </li>
+
+                        <li class="mb-2">
+                            <i class="bi bi-wrench-adjustable me-2"></i>
+                            <strong>Tindakan:</strong> {{ $item->tindakan }}
+                        </li>
+
+                        <li class="mb-2">
+                            <i class="bi bi-person-badge me-2"></i>
+                            <strong>Pelaksana:</strong> {{ $item->pelaksana }}
+                        </li>
+
+                        <li class="mb-2">
+                            <i class="bi bi-cash-stack me-2"></i>
+                            <strong>Biaya:</strong>
+                            Rp {{ number_format($item->biaya, 0, ',', '.') }}
+                        </li>
+
+                    </ul>
+
+                    @if ($item->media->count())
+                        <div class="d-flex gap-2 flex-wrap mt-2">
+                            @foreach ($item->media as $m)
+                                <img src="{{ asset('storage/' . $m->file_url) }}"
+                                     class="img-fluid rounded shadow-sm"
+                                     style="max-width: 140px; border-radius: 12px;">
+                            @endforeach
+                        </div>
+                    @endif
+
+                </div>
+            </div>
+
+        @endif
+    @endforeach
+
+</div>
+
 
             </div>
 

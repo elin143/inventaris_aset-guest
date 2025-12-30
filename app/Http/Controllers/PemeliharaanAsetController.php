@@ -2,58 +2,74 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aset;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades;
 use App\Models\PemeliharaanAset;
+use Illuminate\Http\Request;
 
 class PemeliharaanAsetController extends Controller
 {
-    public function index(Request $request)
-    {
-        $search = $request->search;
+public function index(Request $request)
+{
+    $search = $request->search;
 
-        $data = PemeliharaanAset::with('aset')
-            ->select('pemeliharaan_id', 'aset_id')
-            ->selectRaw('SUM(biaya) as total_biaya')
-            ->groupBy('pemeliharaan_id', 'aset_id')
+    // Subquery pemeliharaan
+    $sub = \DB::table('pemeliharaan_aset as pa')
+        ->selectRaw('
+            pa.aset_id,
+            SUM(pa.biaya) AS total_biaya,
+            COUNT(pa.pemeliharaan_id) AS total_riwayat,
+            (
+                SELECT pa2.pemeliharaan_id
+                FROM pemeliharaan_aset pa2
+                WHERE pa2.aset_id = pa.aset_id
+                ORDER BY pa2.tanggal DESC
+                LIMIT 1
+            ) AS latest_id
+        ')
+        ->groupBy('pa.aset_id');
 
-        // SEARCH
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->whereHas('aset', function ($a) use ($search) {
-                        $a->where('nama_aset', 'LIKE', "%{$search}%");
-                    })
-                        ->orWhere('tindakan', 'LIKE', "%{$search}%");
-                });
-            })
+    // Query utama — langsung DB::table() agar semua kolom terbaca
+$data = \DB::table('aset')
+    ->leftJoinSub($sub, 'p', function ($join) {
+        $join->on('p.aset_id', '=', 'aset.aset_id');
+    })
+    ->select(
+        'aset.aset_id',
+        'aset.nama_aset',
+        'p.total_biaya',
+        'p.total_riwayat',
+        'p.latest_id'
+    )
+    ->whereNotNull('p.latest_id') // ⬅ penting!
+    ->paginate(9)
+    ->withQueryString();
 
-            ->orderBy('pemeliharaan_id', 'desc')
-            ->paginate(9)
-            ->withQueryString();
-
-        return view('pages.pemeliharaan.index', compact('data'));
-    }
+    return view('pages.pemeliharaan.index', compact('data'));
+}
 
     public function create()
     {
         $aset = Aset::all();
         return view('pages.pemeliharaan.create', compact('aset'));
     }
+
     public function show($id)
     {
-        $pemeliharaan = PemeliharaanAset::with('media', 'aset')
-            ->where('pemeliharaan_id', $id)
-            ->firstOrFail();
+        $pemeliharaan = PemeliharaanAset::with('media', 'aset')->findOrFail($id);
 
-        return view('pages.pemeliharaan.detail', compact('pemeliharaan'));
+        $riwayat = PemeliharaanAset::with('media')
+            ->where('aset_id', $pemeliharaan->aset_id)
+            ->orderBy('tanggal', 'desc')
+            ->get();
+
+        return view('pages.pemeliharaan.detail', [
+            'pemeliharaan' => $pemeliharaan,
+            'riwayat'      => $riwayat,
+        ]);
     }
 
-// EDIT
     public function edit($id)
     {
-        $pemeliharaan = PemeliharaanAset::with('media', 'aset')
-            ->findOrFail($id);
-
+        $pemeliharaan = PemeliharaanAset::with('media', 'aset')->findOrFail($id);
         return view('pages.pemeliharaan.edit', compact('pemeliharaan'));
     }
 
@@ -67,15 +83,10 @@ class PemeliharaanAsetController extends Controller
             'pelaksana' => 'required',
         ]);
 
-        $pemeliharaan = PemeliharaanAset::create([
-            'aset_id'   => $request->aset_id,
-            'tanggal'   => $request->tanggal,
-            'tindakan'  => $request->tindakan,
-            'biaya'     => $request->biaya,
-            'pelaksana' => $request->pelaksana,
-        ]);
+        $pemeliharaan = PemeliharaanAset::create($request->only(
+            'aset_id', 'tanggal', 'tindakan', 'biaya', 'pelaksana'
+        ));
 
-        // Simpan bukti pemeliharaan (media)
         if ($request->hasFile('media')) {
             foreach ($request->file('media') as $file) {
                 $path = $file->store('pemeliharaan_aset', 'public');
@@ -86,7 +97,6 @@ class PemeliharaanAsetController extends Controller
                     'file_url'  => $path,
                     'mime_type' => $file->getClientMimeType(),
                 ]);
-
             }
         }
 
@@ -94,7 +104,6 @@ class PemeliharaanAsetController extends Controller
             ->with('success', 'Data pemeliharaan berhasil ditambahkan');
     }
 
-    // UPDATE
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -111,7 +120,6 @@ class PemeliharaanAsetController extends Controller
             ->with('success', 'Data berhasil diperbarui');
     }
 
-    // HAPUS
     public function destroy($id)
     {
         PemeliharaanAset::findOrFail($id)->delete();
