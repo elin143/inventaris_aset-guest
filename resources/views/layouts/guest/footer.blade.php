@@ -27,15 +27,29 @@
                 </div>
             </div>
 
-            <!-- Quick Links -->
-            <div class="col-lg-3 col-md-6">
-                <h4 class="text-primary mb-4">Navigasi Cepat</h4>
-                <a class="btn btn-link" href="{{ route('dashboard') }}">Dashboard</a>
-                <a class="btn btn-link" href="{{ route('tentang') }}">Tentang Sistem</a>
-                <a class="btn btn-link" href="{{ route('aset.index') }}">Data Aset</a>
-                <a class="btn btn-link" href="{{ route('warga.index') }}">Data Warga</a>
-                <a class="btn btn-link" href="{{ route('developer') }}">Identitas Pengembang</a>
-            </div>
+<!-- Quick Links -->
+<div class="col-lg-3 col-md-6">
+    <h4 class="text-primary mb-4">Navigasi Cepat</h4>
+
+    <a class="btn btn-link" href="{{ route('dashboard') }}">Dashboard</a>
+    <a class="btn btn-link" href="{{ route('tentang') }}">Tentang Sistem</a>
+
+    {{-- DATA ASET (ADMIN & GUEST) --}}
+    @php
+        $asetRoute = auth()->check() && auth()->user()->role === 'admin'
+            ? (Route::has('admin.aset.index') ? route('admin.aset.index') : '#')
+            : (Route::has('guest.aset.index') ? route('guest.aset.index') : '#');
+    @endphp
+    <a class="btn btn-link" href="{{ $asetRoute }}">Data Aset</a>
+
+    {{-- DATA WARGA (ADMIN SAJA) --}}
+    @if(auth()->check() && auth()->user()->role === 'admin' && Route::has('admin.warga.index'))
+        <a class="btn btn-link" href="{{ route('admin.warga.index') }}">Data Warga</a>
+    @endif
+
+    <a class="btn btn-link" href="{{ route('developer') }}">Identitas Pengembang</a>
+</div>
+
 
             <!-- Business Hours / Jam Pelayanan -->
             <div class="col-lg-3 col-md-6">

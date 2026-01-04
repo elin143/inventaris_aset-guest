@@ -17,7 +17,8 @@ class CreateFirstUser extends Seeder
         User::create([
             'name' => 'admin',
             'email' => 'elin@pcr.ac.id',
-            'password' => Hash::make('elingacor')
+            'password' => Hash::make('elingacor'),
+            'role' => 'admin'
         ]);
     }
 }

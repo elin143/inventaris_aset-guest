@@ -7,13 +7,20 @@ use Illuminate\Http\Request;
 
 class PemeliharaanAsetController extends Controller
 {
-public function index(Request $request)
-{
-    $search = $request->search;
+    public function index(Request $request)
+    {
+        $searchableColumns = ['tindakan', 'pelaksana'];
 
-    // Subquery pemeliharaan
-    $sub = \DB::table('pemeliharaan_aset as pa')
-        ->selectRaw('
+        // Subquery pemeliharaan
+        $sub = \DB::table('pemeliharaan_aset as pa')
+         ->when($request->filled('search'), function ($q) use ($request, $searchableColumns) {
+            $q->where(function ($qq) use ($request, $searchableColumns) {
+                foreach ($searchableColumns as $column) {
+                    $qq->orWhere($column, 'LIKE', '%' . $request->search . '%');
+                }
+            });
+        })
+            ->selectRaw('
             pa.aset_id,
             SUM(pa.biaya) AS total_biaya,
             COUNT(pa.pemeliharaan_id) AS total_riwayat,
@@ -25,26 +32,26 @@ public function index(Request $request)
                 LIMIT 1
             ) AS latest_id
         ')
-        ->groupBy('pa.aset_id');
+            ->groupBy('pa.aset_id');
 
-    // Query utama — langsung DB::table() agar semua kolom terbaca
-$data = \DB::table('aset')
-    ->leftJoinSub($sub, 'p', function ($join) {
-        $join->on('p.aset_id', '=', 'aset.aset_id');
-    })
-    ->select(
-        'aset.aset_id',
-        'aset.nama_aset',
-        'p.total_biaya',
-        'p.total_riwayat',
-        'p.latest_id'
-    )
-    ->whereNotNull('p.latest_id') // ⬅ penting!
-    ->paginate(9)
-    ->withQueryString();
+        // Query utama — langsung DB::table() agar semua kolom terbaca
+        $data = \DB::table('aset')
+            ->leftJoinSub($sub, 'p', function ($join) {
+                $join->on('p.aset_id', '=', 'aset.aset_id');
+            })
+            ->select(
+                'aset.aset_id',
+                'aset.nama_aset',
+                'p.total_biaya',
+                'p.total_riwayat',
+                'p.latest_id'
+            )
+            ->whereNotNull('p.latest_id') // ⬅ penting!
+            ->paginate(12)
+            ->withQueryString();
 
-    return view('pages.pemeliharaan.index', compact('data'));
-}
+        return view('pages.pemeliharaan.index', compact('data'));
+    }
 
     public function create()
     {

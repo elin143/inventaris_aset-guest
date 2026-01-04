@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -59,16 +58,17 @@ class AuthController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+            'role'     => 'required|in:guest',
         ]);
 
         $user = User::create([
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-
+            'role'     => $request->role,
         ]);
 
-        // Login otomatis setelah register
+// Login otomatis setelah register
         Auth::login($user);
 
         return redirect()->route('login')->with('success', 'Registrasi berhasil!');

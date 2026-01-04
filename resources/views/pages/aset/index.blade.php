@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <title>Daftar Aset</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
     <link href="{{ asset('assets-guest/img/favicon.ico') }}" rel="icon">
 </head>
 
@@ -32,15 +31,20 @@
                 </div>
             @endif
 
+<form method="GET" action="{{ route('aset.index') }}" class="mb-4">
+
             <!-- Header & Button -->
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
                     <p class="fs-5 fw-medium fst-italic text-primary mb-1">Data Aset</p>
                     <h1 class="display-6 mb-0">Daftar Aset</h1>
                 </div>
-                <a href="{{ route('aset.create') }}" class="btn btn-primary rounded-pill">
-                    <i class="bi bi-plus-circle"></i> Tambah Aset
-                </a>
+
+                @if(auth()->check() && auth()->user()->role === 'admin' && Route::has('aset.create'))
+                    <a href="{{ route('aset.create') }}" class="btn btn-primary rounded-pill">
+                        <i class="bi bi-plus-circle"></i> Tambah Aset
+                    </a>
+                @endif
             </div>
 
             <!-- Search -->
@@ -75,9 +79,9 @@
             </form>
 
             <!-- Pagination Top -->
-            <div class="d-flex justify-content-center mb-4">
-                {{ $aset->links('pagination::bootstrap-5') }}
-            </div>
+        <div class="mt-4">
+            {{ $aset->links('pagination::bootstrap-5') }}
+        </div>
 
             <!-- Cards -->
             <div class="row g-4">
@@ -99,11 +103,12 @@
                                         {{ $item->kategori->nama ?? '-' }}</li>
                                     <li><i class="bi bi-upc-scan me-2"></i><strong>Kode Aset:</strong>
                                         {{ $item->kode_aset }}</li>
-                                    <li><i class="bi bi-cash-coin me-2"></i><strong>Nilai:</strong> Rp
-                                        {{ number_format($item->nilai_perolehan, 0, ',', '.') }}</li>
+                                    <li><i class="bi bi-cash-coin me-2"></i><strong>Nilai:</strong>
+                                        Rp {{ number_format($item->nilai_perolehan, 0, ',', '.') }}</li>
                                     <li><i class="bi bi-calendar-check me-2"></i><strong>Tanggal:</strong>
                                         {{ $item->tgl_perolehan }}</li>
-                                    <li><i class="bi bi-tools me-2"></i><strong>Kondisi:</strong> {{ $item->kondisi }}</li>
+                                    <li><i class="bi bi-tools me-2"></i><strong>Kondisi:</strong>
+                                        {{ $item->kondisi }}</li>
                                     <li>
                                         <i class="bi bi-images me-2"></i>
                                         <strong>Foto:</strong>
@@ -115,27 +120,33 @@
                                                 @endforeach
                                             </div>
                                         @else
-                                            <img src="{{ asset('assets-guest/img/placeholder.png') }}" class="img-fluid rounded"
-                                                style="height:180px; object-fit:cover;">
+                                            <img src="{{ asset('assets-guest/img/placeholder.png') }}"
+                                                 class="img-fluid rounded"
+                                                 style="height:180px; object-fit:cover;">
                                         @endif
                                     </li>
-
                                 </ul>
 
                                 <div class="d-flex justify-content-between">
-                                    <a href="{{ route('aset.edit', $item->aset_id) }}"
-                                        class="btn btn-warning btn-sm rounded-pill px-3">
-                                        <i class="bi bi-pencil"></i> Edit
-                                    </a>
+                                    @if(auth()->check() && auth()->user()->role === 'admin' && Route::has('aset.edit'))
+                                        <a href="{{ route('aset.edit', $item->aset_id) }}"
+                                           class="btn btn-warning btn-sm rounded-pill px-3">
+                                            <i class="bi bi-pencil"></i> Edit
+                                        </a>
+                                    @endif
 
-                                    <form action="{{ route('aset.destroy', $item->aset_id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus aset ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3">
-                                            <i class="bi bi-trash"></i> Hapus
-                                        </button>
-                                    </form>
+                                    @if(auth()->check() && auth()->user()->role === 'admin' && Route::has('aset.destroy'))
+                                        <form action="{{ route('aset.destroy', $item->aset_id) }}"
+                                              method="POST"
+                                              onsubmit="return confirm('Yakin ingin menghapus aset ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="btn btn-danger btn-sm rounded-pill px-3">
+                                                <i class="bi bi-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    @endif
                                 </div>
 
                             </div>

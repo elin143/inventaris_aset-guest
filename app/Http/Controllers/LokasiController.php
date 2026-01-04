@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Aset;
@@ -10,9 +9,15 @@ use Illuminate\Http\Request;
 class LokasiController extends Controller
 {
     // INDEX
-    public function index()
+    public function index(Request $request)
     {
-        $lokasi = Lokasi::with(['aset', 'media'])->paginate(12);
+        $searchableColumns = ['keterangan', 'lokasi_text', 'rt', 'rw']; // kolom lokasi
+
+        $lokasi = Lokasi::with(['aset', 'media'])
+            ->search($request, $searchableColumns)
+            ->paginate(12)
+            ->withQueryString();
+
         return view('pages.lokasi.index', compact('lokasi'));
     }
 
@@ -32,11 +37,11 @@ class LokasiController extends Controller
         ]);
 
         $lokasi = Lokasi::create([
-            'aset_id' => $request->aset_id,
-            'keterangan' => $request->keterangan,
+            'aset_id'     => $request->aset_id,
+            'keterangan'  => $request->keterangan,
             'lokasi_text' => $request->lokasi_text,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
+            'rt'          => $request->rt,
+            'rw'          => $request->rw,
         ]);
 
         if ($request->hasFile('media')) {
@@ -45,8 +50,8 @@ class LokasiController extends Controller
 
                 Media::create([
                     'ref_table' => 'lokasi_aset',
-                    'ref_id' => $lokasi->lokasi_id,
-                    'file_url' => $path,
+                    'ref_id'    => $lokasi->lokasi_id,
+                    'file_url'  => $path,
                     'mime_type' => $file->getClientMimeType(),
                 ]);
             }
@@ -60,7 +65,7 @@ class LokasiController extends Controller
     public function edit($id)
     {
         $lokasi = Lokasi::with('media')->findOrFail($id);
-        $aset = Aset::all();
+        $aset   = Aset::all();
 
         return view('pages.lokasi.edit', compact('lokasi', 'aset'));
     }
@@ -76,11 +81,11 @@ class LokasiController extends Controller
         $lokasi = Lokasi::findOrFail($id);
 
         $lokasi->update([
-            'aset_id' => $request->aset_id,
-            'keterangan' => $request->keterangan,
+            'aset_id'     => $request->aset_id,
+            'keterangan'  => $request->keterangan,
             'lokasi_text' => $request->lokasi_text,
-            'rt' => $request->rt,
-            'rw' => $request->rw,
+            'rt'          => $request->rt,
+            'rw'          => $request->rw,
         ]);
 
         if ($request->hasFile('media')) {
@@ -89,8 +94,8 @@ class LokasiController extends Controller
 
                 Media::create([
                     'ref_table' => 'lokasi_aset',
-                    'ref_id' => $lokasi->lokasi_id,
-                    'file_url' => $path,
+                    'ref_id'    => $lokasi->lokasi_id,
+                    'file_url'  => $path,
                     'mime_type' => $file->getClientMimeType(),
                 ]);
             }
@@ -107,7 +112,10 @@ class LokasiController extends Controller
 
         foreach ($lokasi->media as $media) {
             $path = storage_path('app/public/' . $media->file_url);
-            if (file_exists($path)) unlink($path);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+
             $media->delete();
         }
 

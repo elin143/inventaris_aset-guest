@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 
 class MutasiAsetController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $mutasi = MutasiAset::with('aset')->paginate(12);
+        $searchableColumns = ['jenis_mutasi', 'keterangan', 'tanggal'];
+
+        $mutasi = MutasiAset::with('aset')
+            ->search($request, $searchableColumns)
+            ->paginate(12)
+            ->withQueryString();
+
         return view('pages.mutasi_aset.index', compact('mutasi'));
     }
 

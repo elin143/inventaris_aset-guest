@@ -32,16 +32,22 @@
             </div>
         @endif
 
+<form method="GET" action="{{ route('pemeliharaan.index') }}" class="mb-4">
+
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <p class="fs-5 fw-medium fst-italic text-primary mb-1">Data Pemeliharaan Aset</p>
                 <h1 class="display-6 mb-0">Daftar Pemeliharaan Aset</h1>
             </div>
-            <a href="{{ route('pemeliharaan.create') }}" class="btn btn-primary rounded-pill">
-                <i class="bi bi-plus-circle"></i> Tambah Pemeliharaan
-            </a>
+
+            @if(auth()->check() && auth()->user()->role === 'admin' && Route::has('pemeliharaan.create'))
+                <a href="{{ route('pemeliharaan.create') }}" class="btn btn-primary rounded-pill">
+                    <i class="bi bi-plus-circle"></i> Tambah Pemeliharaan
+                </a>
+            @endif
         </div>
 
+        <!-- Search -->
         <form method="GET" action="{{ route('pemeliharaan.index') }}" class="mb-4">
             <div class="input-group">
                 <input type="text"
@@ -61,17 +67,18 @@
                     <div class="card shadow-lg border-0 h-100" style="border-radius:18px;">
                         <div class="card-body p-4" style="background:#d9f8c4; border-radius:18px;">
 
-                                <div class="d-flex align-items-center mb-3">
-                                    <i class="bi bi-tools text-dark" style="font-size: 2.2rem;"></i>
-                                    <div class="ms-3">
-                                        <h5 class="fw-bold text-dark mb-1">
-                                            Pemeliharaan #{{ $item->latest_id }}
-                                        </h5>
-                                        <small class="text-muted">
-                                            Aset: {{ $item->nama_aset }}
-                                        </small>
-                                    </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-tools text-dark" style="font-size: 2.2rem;"></i>
+                                <div class="ms-3">
+                                    <h5 class="fw-bold text-dark mb-1">
+                                        Pemeliharaan #{{ $item->latest_id }}
+                                    </h5>
+                                    <small class="text-muted">
+                                        Aset: {{ $item->nama_aset }}
+                                    </small>
                                 </div>
+                            </div>
+
                             <ul class="list-unstyled mb-4 mt-3">
                                 <li>
                                     <i class="bi bi-cash-stack me-2"></i>
@@ -87,25 +94,34 @@
 
                             <div class="d-flex justify-content-between">
 
-                                <a href="{{ route('pemeliharaan.detail', $item->latest_id) }}"
-                                   class="btn btn-info btn-sm rounded-pill px-3">
-                                   <i class="bi bi-eye"></i> Detail
-                                </a>
+                                {{-- DETAIL (ADMIN & GUEST BOLEH) --}}
+                                @if(Route::has('pemeliharaan.detail'))
+                                    <a href="{{ route('pemeliharaan.detail', $item->latest_id) }}"
+                                       class="btn btn-info btn-sm rounded-pill px-3">
+                                       <i class="bi bi-eye"></i> Detail
+                                    </a>
+                                @endif
 
-                                <a href="{{ route('pemeliharaan.edit', $item->latest_id) }}"
-                                   class="btn btn-warning btn-sm rounded-pill px-3">
-                                   <i class="bi bi-pencil"></i> Edit
-                                </a>
+                                {{-- EDIT (ADMIN ONLY) --}}
+                                @if(auth()->check() && auth()->user()->role === 'admin' && Route::has('pemeliharaan.edit'))
+                                    <a href="{{ route('pemeliharaan.edit', $item->latest_id) }}"
+                                       class="btn btn-warning btn-sm rounded-pill px-3">
+                                       <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                @endif
 
-                                <form action="{{ route('pemeliharaan.destroy', $item->latest_id) }}"
-                                      method="POST"
-                                      onsubmit="return confirm('Hapus pemeliharaan terbaru untuk aset ini?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-danger btn-sm rounded-pill px-3">
-                                        <i class="bi bi-trash"></i> Hapus
-                                    </button>
-                                </form>
+                                {{-- HAPUS (ADMIN ONLY) --}}
+                                @if(auth()->check() && auth()->user()->role === 'admin' && Route::has('pemeliharaan.destroy'))
+                                    <form action="{{ route('pemeliharaan.destroy', $item->latest_id) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Hapus pemeliharaan terbaru untuk aset ini?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-danger btn-sm rounded-pill px-3">
+                                            <i class="bi bi-trash"></i> Hapus
+                                        </button>
+                                    </form>
+                                @endif
 
                             </div>
 
@@ -127,6 +143,5 @@
 </div>
 
 @endsection
-
 
 </html>

@@ -41,85 +41,97 @@
                         <h1 class="display-6 mb-0">Daftar Kategori Aset</h1>
                     </div>
 
-                    <a href="{{ route('kategori.create') }}" class="btn btn-primary rounded-pill">
-                        <i class="bi bi-plus-circle"></i> Tambah Kategori
-                    </a>
+                    @if (auth()->check() && auth()->user()->role === 'admin' && Route::has('kategori.create'))
+                        <a href="{{ route('kategori.create') }}" class="btn btn-primary rounded-pill">
+                            <i class="bi bi-plus-circle"></i> Tambah Kategori
+                        </a>
+                    @endif
+
                 </div>
 
                 <div class="table-responsive">
-                    <form method="GET" action="{{ route('kategori.index') }}" class="mb-3">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="input-group">
-                                    <input type="text" name="search" class="form-control" id="exampleInputIconRight"
-                                        value="{{ request('search') }}" placeholder="Search" aria-label="Search">
-                                    <button type="submit" class="input-group-text" id="basic-addon2">
-                                        @if (request('search'))
-                                            <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
-                                                class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
-                                        @endif
-                                        <svg class="icon icon-xxs" fill="currentColor" viewBox="0 0 20 20"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path fill-rule="evenodd"
-                                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                                clip-rule="evenodd"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="mt-3">
-                        {{ $kategori->links('pagination::bootstrap-5') }}
-                    </div>
-                    <div class="row g-4">
-                        @forelse ($kategori as $index => $item)
-                            <div class="col-lg-4 col-md-6 col-sm-12">
-                                <div class="card h-100 shadow-lg overflow-hidden hover-card" style="border-radius: 20px;">
-                                    <div class="card-body p-4 text-dark" style="background-color: #d9f8c4;">
 
-                                        <div class="d-flex align-items-center mb-3">
-                                            <div class="flex-shrink-0">
-                                                <i class="bi bi-tags-fill text-dark" style="font-size: 2rem;"></i>
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h5 class="card-title mb-0 fw-bold text-dark">{{ $item->nama }}</h5>
-                                                <small class="text-dark">#{{ $index + 1 }}</small>
-                                            </div>
-                                        </div>
-
-                                        <ul class="list-unstyled mb-4">
-                                            <li><i class="bi bi-upc-scan text-dark me-2"></i><strong>Kode:</strong>
-                                                {{ $item->kode }}</li>
-                                            <li><i
-                                                    class="bi bi-file-earmark-text text-dark me-2"></i><strong>Deskripsi:</strong>
-                                                {{ $item->deskripsi ?? '-' }}</li>
-                                        </ul>
-
-                                        <div class="d-flex justify-content-between">
-                                            <a href="{{ route('kategori.edit', $item->kategori_id) }}"
-                                                class="btn btn-warning btn-sm rounded-pill px-3">
-                                                <i class="bi bi-pencil"></i> Edit
-                                            </a>
-                                            <form action="{{ route('kategori.destroy', $item->kategori_id) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Yakin ingin menghapus kategori ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm rounded-pill px-3">
-                                                    <i class="bi bi-trash"></i> Hapus
-                                                </button>
-                                            </form>
-                                        </div>
+                    {{-- search --}}
+                        <form method="GET" action="{{ route('kategori.index') }}" class="mb-3">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="input-group">
+                                        <input type="text" name="search" class="form-control" id="exampleInputIconRight"
+                                            value="{{ request('search') }}" placeholder="Search" aria-label="Search">
+                                        <button type="submit" class="input-group-text" id="basic-addon2">
+                                            @if (request('search'))
+                                                <a href="{{ request()->fullUrlWithQuery(['search' => null]) }}"
+                                                    class="btn btn-outline-secondary ml-3" id="clear-search"> Clear</a>
+                                            @endif
+                                            <svg class="icon icon-xxs" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        @empty
-                            <div class="text-center text-muted py-5">
-                                <h5>Belum ada data kategori.</h5>
-                            </div>
-                        @endforelse
-                    </div>
+                        </form>
+                        <div class="mt-4">
+                            {{ $kategori->links('pagination::bootstrap-5') }}
+                        </div>
+                        <div class="row g-4">
+                            @forelse ($kategori as $index => $item)
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="card h-100 shadow-lg overflow-hidden hover-card"
+                                        style="border-radius: 20px;">
+                                        <div class="card-body p-4 text-dark" style="background-color: #d9f8c4;">
+
+                                            <div class="d-flex align-items-center mb-3">
+                                                <div class="flex-shrink-0">
+                                                    <i class="bi bi-tags-fill text-dark" style="font-size: 2rem;"></i>
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h5 class="card-title mb-0 fw-bold text-dark">{{ $item->nama }}</h5>
+                                                    <small class="text-dark">#{{ $index + 1 }}</small>
+                                                </div>
+                                            </div>
+
+                                            <ul class="list-unstyled mb-4">
+                                                <li><i class="bi bi-upc-scan text-dark me-2"></i><strong>Kode:</strong>
+                                                    {{ $item->kode }}</li>
+                                                <li><i
+                                                        class="bi bi-file-earmark-text text-dark me-2"></i><strong>Deskripsi:</strong>
+                                                    {{ $item->deskripsi ?? '-' }}</li>
+                                            </ul>
+
+                                            <div class="d-flex justify-content-between">
+                                                @if (auth()->check() && auth()->user()->role === 'admin' && Route::has('kategori.edit'))
+                                                    <a href="{{ route('kategori.edit', $item->kategori_id) }}"
+                                                        class="btn btn-sm btn-warning">
+                                                        <i class="bi bi-pencil-square"></i> Edit
+                                                    </a>
+                                                @endif
+
+                                                @if (auth()->check() && auth()->user()->role === 'admin' && Route::has('kategori.destroy'))
+                                                    <form action="{{ route('kategori.destroy', $item->kategori_id) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('Yakin ingin menghapus kategori ini?')"
+                                                        class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                            <i class="bi bi-trash"></i> Hapus
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @empty
+                                <div class="text-center text-muted py-5">
+                                    <h5>Belum ada data kategori.</h5>
+                                </div>
+                            @endforelse
+                        </div>
                 </div>
             </div>
     </body>
